@@ -1,0 +1,49 @@
+.container{
+    // height:100vh;
+
+    .title{
+        margin: 2% 0%;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 28px;
+    }
+
+    .detail-container{
+        padding: 2% 5%;
+        .buttons-container{
+            padding-bottom: 2%;
+        }
+        .data-container{
+            min-height: 60vh;
+        }
+    }
+
+    .sidenav{
+        background: #1E213A;
+        min-height: 100%;
+        .main-temp{
+            font-weight: 500;
+            font-size: 80px;
+            line-height: 169px;
+            text-align: center;
+        }
+        .main-degree{
+            font-weight: 500;
+            font-size: 50px;
+            line-height: 169px;
+            text-align: center;
+        }
+        .main-description{
+            font-size: 36px;
+            line-height: 42px;
+            text-align: center;
+            color: #A09FB1;
+        }
+        .main-location{
+            font-size: 18px;
+            line-height: 21px;
+            color: #88869D;
+
+        }
+    }
+}

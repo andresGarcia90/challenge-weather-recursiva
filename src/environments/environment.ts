@@ -3,8 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
 };
+
+export const API_POSITION_STACK = '70b6eb2c619eaa2321811d7c7244268b';
 
 /*
  * For easier debugging in development mode, you can import the following file

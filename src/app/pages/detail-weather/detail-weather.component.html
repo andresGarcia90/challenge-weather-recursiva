@@ -1,0 +1,44 @@
+<div class="container" fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" >
+  <div fxFlex="20" fxLayout="row wrap" fxLayoutAlign="center center">
+   <app-sidenav-description 
+    fxFlex="100" 
+    *ngIf="weatherSidebar"
+    [currentWeather]="currentWeather" 
+    (searchButtonEvent)="switchSidenav()"></app-sidenav-description>
+   <app-sidenav-search-location 
+    fxFlex="100"
+    *ngIf="!weatherSidebar"
+    (closeButtonEvent)="switchSidenav()"></app-sidenav-search-location>
+  </div>
+  <div fxFlex="80" fxLayout="row wrap" fxLayoutAlign="center center" class="detail-container">
+    <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="end center" fxLayoutGap="10" class="buttons-container">
+      <button mat-mini-fab (click)="changeDegree()" [disabled]="optionDegree">°C</button>
+      <button mat-mini-fab (click)="changeDegree()" [disabled]="!optionDegree">°F</button>
+    </div>
+    <div class="data-container" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="center center">
+      <div *ngIf="loading;else dataLoadingTemplate">
+        <mat-spinner></mat-spinner>
+      </div>
+      <ng-template #dataLoadingTemplate>
+        <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="center center">
+          <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutAlign.gt-sm="space-between center" fxFlex="100">
+            <ng-container *ngFor="let dailyWeather of historicalWeather">
+              <app-weather-card [weather]="dailyWeather"></app-weather-card>
+            </ng-container>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100">
+            <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="start center">
+              <h1 class="title">Today’s Hightlights</h1>
+            </div>
+            <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutAlign.gt-sm="space-between center">
+              <app-description-card [title]="windTitle" [data]="windData"></app-description-card>
+              <app-description-card [title]="humidityTitle" [data]="humidityData"></app-description-card>
+              <app-description-card [title]="visibilityTitle" [data]="visibilityData"></app-description-card>
+              <app-description-card [title]="cloudsTitle" [data]="cloudsData"></app-description-card>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

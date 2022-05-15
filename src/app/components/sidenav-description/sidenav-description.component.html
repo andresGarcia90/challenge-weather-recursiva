@@ -1,0 +1,26 @@
+<div class="sidebar" fxLayout="row wrap" fxFlex="100" fxFlexFill>
+    <div fxFlex="100"  *ngIf="!currentWeather;else currentWeatherTemplate">
+        <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="center center">
+            <mat-spinner></mat-spinner>
+        </div>
+    </div>
+    <ng-template #currentWeatherTemplate>
+        <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="center center">
+            <button mat-raised-button (click)="seachButton()">Seach for places</button>
+        </div>
+        <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="center center">
+            <img class="icon" src="http://openweathermap.org/img/wn/{{currentWeather.weather[0].icon}}@4x.png"
+                alt="{{currentWeather.weather[0].main}}" srcset="">
+        </div>
+        <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="center center">
+            <span class="main-temp">{{currentWeather.main.temp}}</span>
+            <span class="main-degree">°C</span>
+        </div>
+        <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="center center">
+            <span class="main-description">{{currentWeather.weather[0].main}}</span>
+        </div>
+        <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="center center" class="main-location">
+            <mat-icon aria-hidden="false" aria-label="Location">location_on</mat-icon> {{currentWeather.name}}
+        </div>
+    </ng-template>
+</div>
