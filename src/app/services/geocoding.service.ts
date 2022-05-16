@@ -13,4 +13,5 @@ export class GeocodingService {
 
   getCity(city: string): Observable<any> {
     return this.http.get(`${this.urlPosition}?query=${city}&limit=10&output=json&access_key=${this.ak}`);
+  }
 }
