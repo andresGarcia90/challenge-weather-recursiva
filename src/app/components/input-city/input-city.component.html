@@ -1,5 +1,5 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="cityForm">
-   <mat-form-field appearance="outline" color="primary">
+   <mat-form-field appearance="outline" color="primary" class="field">
     <mat-label>City</mat-label>
     <input 
         matInput
@@ -8,6 +8,7 @@
         formControlName="name"
         placeholder="Enter city name"
         [matAutocomplete]="auto"
+        (input)="onInput($event)"
         required>
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
             <mat-option *ngFor="let city of cities" [value]="city.name+', '+city.country">
@@ -15,7 +16,7 @@
             </mat-option>
           </mat-autocomplete>
     </mat-form-field>
-    <button mat-button type="submit" [disabled]="!cityForm.valid">
+    <button mat-button type="submit" [disabled]="!cityForm.valid" >
         <mat-icon aria-hidden="false" aria-label="chevron_right icon">chevron_right</mat-icon>
     </button>
 </form>

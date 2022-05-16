@@ -9,6 +9,7 @@ import { EventEmitter } from '@angular/core';
 })
 export class SidenavDescriptionComponent implements OnInit {
   @Input() currentWeather!: AllWeather;
+  @Input() optionDegree = 'C';
   @Output() searchButtonEvent: EventEmitter<boolean> = new EventEmitter<boolean> ();
   constructor() { }
 

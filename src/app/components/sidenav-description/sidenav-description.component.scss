@@ -3,13 +3,13 @@
     min-height: 100vh;
     .main-temp{
         font-weight: 500;
-        font-size: 80px;
+        font-size: 30px;
         line-height: 169px;
         text-align: center;
     }
     .main-degree{
         font-weight: 500;
-        font-size: 50px;
+        font-size: 30px;
         line-height: 169px;
         text-align: center;
     }
@@ -24,5 +24,16 @@
         line-height: 21px;
         color: #88869D;
 
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .sidebar{
+        .main-temp{
+            font-size: 60px;
+        }
+        .main-degree{
+            font-size: 60px;
+        }
     }
 }

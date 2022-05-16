@@ -14,7 +14,6 @@ export class WeatherCardComponent implements OnInit {
   ngOnInit(): void {
     if ( this.weather ) {
       this.time = this._getTime(this.weather.dt);
-      console.log('the day is '+  this.time);
     }
   }
 

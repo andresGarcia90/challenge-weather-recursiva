@@ -1,16 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router, RouterOutlet } from '@angular/router';
+import { debounceTime, distinctUntilChanged, Subject, Subscription } from 'rxjs';
 import { City } from 'src/app/configs/interface.config'
 import { GeocodingService } from 'src/app/services/geocoding.service';
 
 @Component({
   selector: 'app-input-city',
   templateUrl: './input-city.component.html',
-  styleUrls: ['./input-city.component.sass']
+  styleUrls: ['./input-city.component.scss']
 })
-export class InputCityComponent implements OnInit {
-  public cities: City[] = []
+export class InputCityComponent implements OnInit, OnDestroy {
+  public cities: City[] = [];
+  inputValue = new Subject<string>();
+  subscriptions: Subscription[] = [];
+  trigger = this.inputValue.pipe(
+    debounceTime(300),
+    distinctUntilChanged()
+  );
   cityForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(70)]],
   });
@@ -21,25 +28,37 @@ export class InputCityComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-   
-    this.cityForm.valueChanges.subscribe(
-      () => {
-        if (this.name && this.name.value && this.name.value.length > 5) {
-          this._showCities(this.name.value);
-        }
+
+    const subscription = this.trigger.subscribe(currentValue => {
+      if (currentValue !== '') {
+        this._showCities(currentValue);
       }
-    );
+      
+    });
+    this.subscriptions.push(subscription);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   get name() { return this.cityForm.get('name');}
 
   private _showCities(name: string) {
     const filterValue = name.toLowerCase();
-
-    this.geocodingService.getCity(filterValue).subscribe(
-      (data: City[]) => {
-        this.cities = data.filter(city => city.type === 'locality');
+    const subscription = this.geocodingService.getCity(filterValue).subscribe(
+      (data) => {
+        const cities: City[] = data.data;
+        if(cities && cities.length > 0){
+          this.cities = cities.filter(city => city.type === 'locality');
+        }
       });
+    this.subscriptions.push(subscription);
+
+  }
+
+  onInput(e: any) {
+    this.inputValue.next(e.target.value);
   }
 
   onSubmit(){
@@ -48,8 +67,13 @@ export class InputCityComponent implements OnInit {
       if(county && country){
         county = county.trim();
         country = country.trim();
-        const citySelected = this.cities.find(c => c.county === county && c.country === country);
-        this.router.navigate(['/detail-weather', {city: citySelected?.county, lat: citySelected?.latitude, lon: citySelected?.longitude}]);
+        const citySelected = this.cities.find(c => ( c.county === county || c.locality == county )&& c.country === country);
+        if(citySelected){
+          this.router.navigate(['/detail-weather', {city: county, lat: citySelected?.latitude, lon: citySelected?.longitude}])
+          .then(() => {
+            window.location.reload();
+          });
+        }
       }
       
     }

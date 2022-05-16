@@ -1,22 +1,37 @@
 <div class="container" fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" >
-  <div fxFlex="20" fxLayout="row wrap" fxLayoutAlign="center center">
+  <div fxFlex="20" fxHide.lt-md="true" fxLayout="row wrap" fxLayoutAlign="center center">
    <app-sidenav-description 
     fxFlex="100" 
     *ngIf="weatherSidebar"
-    [currentWeather]="currentWeather" 
+    [currentWeather]="currentWeather"
+    [optionDegree]="optionDegree? 'C' : 'F'"
     (searchButtonEvent)="switchSidenav()"></app-sidenav-description>
    <app-sidenav-search-location 
     fxFlex="100"
     *ngIf="!weatherSidebar"
     (closeButtonEvent)="switchSidenav()"></app-sidenav-search-location>
   </div>
-  <div fxFlex="80" fxLayout="row wrap" fxLayoutAlign="center center" class="detail-container">
-    <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="end center" fxLayoutGap="10" class="buttons-container">
-      <button mat-mini-fab (click)="changeDegree()" [disabled]="optionDegree">°C</button>
-      <button mat-mini-fab (click)="changeDegree()" [disabled]="!optionDegree">°F</button>
+  <div fxFlex="100" fxFlex.gt-sm="80" fxLayout="row wrap" fxLayoutAlign="center center" class="detail-container">
+    <div fxFlex="100"  fxLayout="row wrap" fxLayoutAlign="center center" >
+      <div
+        fxFlex="100"
+        fxFlex.sm="80"
+        fxHide.gt-sm="true"
+        fxLayout="row wrap" fxLayoutAlign="start center">
+        <app-input-city></app-input-city>
+      </div>
+      <div 
+        fxFlex="100" 
+        fxFlex.sm="20" 
+        fxLayout="row wrap"
+        fxLayoutAlign="end center"
+        fxLayoutGap="10" class="buttons-container">
+        <button mat-mini-fab (click)="changeDegree()" [disabled]="optionDegree">°C</button>
+        <button mat-mini-fab (click)="changeDegree()" [disabled]="!optionDegree">°F</button>
+      </div>
     </div>
     <div class="data-container" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="center center">
-      <div *ngIf="loading;else dataLoadingTemplate">
+      <div *ngIf="loading; else dataLoadingTemplate">
         <mat-spinner></mat-spinner>
       </div>
       <ng-template #dataLoadingTemplate>

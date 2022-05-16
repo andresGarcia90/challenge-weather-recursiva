@@ -14,6 +14,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -45,6 +46,7 @@ import { SidenavSearchLocationComponent } from './components/sidenav-search-loca
   ],
   imports: [
     AppRoutingModule,
+    HttpClientModule,
     FlexLayoutModule,
     BrowserModule,
     BrowserAnimationsModule,

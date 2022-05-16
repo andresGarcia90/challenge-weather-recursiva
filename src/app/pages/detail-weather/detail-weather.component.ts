@@ -10,7 +10,7 @@ import { WeatherService } from 'src/app/services/weather.service';
   styleUrls: ['./detail-weather.component.scss'],
 })
 export class DetailWeatherComponent implements OnInit {
-  public city!: City;
+  public city = '';
   public lat = '';
   public lon = '';
   public currentWeather!: AllWeather;
@@ -42,14 +42,14 @@ export class DetailWeatherComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.city) {
-      this._getWeather(this.optionDegree ? 'metric' : 'imperial');
+      this._getWeather(!this.optionDegree ? 'metric' : 'imperial');
     }
   }
 
   private _getWeather(unit: string): void {
     this.loading = true;
       forkJoin({
-        weather: this.weatherService.getWeather(this.city.county, unit),
+        weather: this.weatherService.getWeather(this.city, unit),
         historicalWeather: this.weatherService.getHistoricalWeather(
           this.lat,
           this.lon,
@@ -64,12 +64,10 @@ export class DetailWeatherComponent implements OnInit {
           this.humidityData = detailWeather.main.humidity + ' %';
           this.visibilityData = detailWeather.visibility + ' m';
           this.cloudsData = detailWeather.clouds.all + ' %';
-          console.log(detailWeather.main);
         }
         if (data.historicalWeather) {
           const historicalWeather: DailyWeather[] = data.historicalWeather.daily;
           this.historicalWeather = historicalWeather.slice(0, 5);
-          console.log(this.historicalWeather);
         }
         this.loading = false;
       });
@@ -80,7 +78,7 @@ export class DetailWeatherComponent implements OnInit {
   }
 
   changeDegree(){
-    const unit = this.optionDegree ? 'metric' : 'imperial';
+    const unit = !this.optionDegree ? 'metric' : 'imperial';
     this.optionDegree = !this.optionDegree;
     this._getWeather(unit);
   }
