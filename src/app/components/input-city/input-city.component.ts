@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router, RouterOutlet } from '@angular/router';
-import { map, startWith } from 'rxjs';
-import { City } from 'src/app/main.config';
+import { City } from 'src/app/configs/interface.config'
 import { GeocodingService } from 'src/app/services/geocoding.service';
 
 @Component({

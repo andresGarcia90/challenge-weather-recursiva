@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
-import { AllWeather } from 'src/app/main.config';
+import { AllWeather } from 'src/app/configs/interface.config'
 import { EventEmitter } from '@angular/core';
 
 @Component({

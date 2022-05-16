@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { forkJoin, merge } from 'rxjs';
-import { AllWeather, City, DailyWeather } from 'src/app/main.config';
+import { ActivatedRoute } from '@angular/router';
+import { forkJoin } from 'rxjs';
+import { AllWeather, City, DailyWeather } from 'src/app/configs/interface.config';
 import { WeatherService } from 'src/app/services/weather.service';
 
 @Component({

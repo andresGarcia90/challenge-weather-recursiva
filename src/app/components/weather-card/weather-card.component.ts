@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AllWeather, DailyWeather, Weather } from 'src/app/main.config';
+import { DailyWeather } from 'src/app/configs/interface.config';
 
 @Component({
   selector: 'app-weather-card',
